@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | FAQ accordion</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <style></style>
+  </head>
+
+  <body>
+    <section id="app" class="card">
+      <div class="card__container">
+        <h1 class="card__title">FAQs</h1>
+        <article class="card__accordion">
+          <!-- <div class="card__accordion-item" v-for="question in questions"> -->
+          <div
+            class="card__accordion-item"
+            v-for="(question, key) in questions"
+            :key="key"
+          >
+            <div class="card__accordion-header">
+              <!-- <button
+                class="card__accordion-question"
+                @click="question.open=!question.open; toggleActive()"
+                v-text="question.title"
+              ></button> -->
+              <button
+                class="card__accordion-question"
+                @click="question.open=!question.open"
+                v-text="question.title"
+              ></button>
+              <img
+                class="icon_plus"
+                :class="{'active' : !question.open}"
+                :src="iconPlus"
+                :alt="iconPlusCaption"
+              />
+              <img
+                class="icon_minus"
+                :class="{'active' : question.open}"
+                :src="iconMinus"
+                :alt="iconMinusCaption"
+              />
+              <!-- <img class="icon_plus" :class="{'active' : isActive}" :src="iconPlus" :alt="iconPlusCaption"> -->
+              <!-- <img class="icon_minus" :class="{'active' : isActive}" :src="iconMinus" alt="iconMinusCaption"> -->
+            </div>
+            <div class="card__accordion-collapse" v-show="question.open">
+              <p class="card__accordion-content">{{question.replay}}</p>
+            </div>
+          </div>
+          <!-- <div class="card__accordion-item">
+            <div class="card__accordion-header">
+              <button class="card__accordion-question"></button>
+            </div>
+            <div class="card__accordion-collapse">
+              <p class="card__accordion-content"></p>
+            </div>
+          </div> -->
+          <!-- <div class="card__accordion-item">
+            <div class="card__accordion-header">
+              <button class="card__accordion-question"></button>
+            </div>
+            <div class="card__accordion-collapse">
+              <p class="card__accordion-content"></p>
+            </div>
+          </div> -->
+          <!-- <div class="card__accordion-item">
+            <div class="card__accordion-header">
+              <button class="card__accordion-question"></button>
+            </div>
+            <div class="card__accordion-collapse">
+              <p class="card__accordion-content"></p>
+            </div>
+          </div> -->
+        </article>
+      </div>
+    </section>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Sasha Yerokhov</a>.
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+<!-- Проблема в том, что вы используете одно общее свойство isActive для всех аккордеонов. Вам нужно отслеживать состояние каждого аккордеона отдельно. 
+ Основные изменения:
+
+Убрал общее свойство isActive - теперь каждый аккордеон управляется своим собственным свойством open
+
+Изменил логику отображения иконок:
+
+icon_plus показывается когда !question.open (аккордеон закрыт)
+
+icon_minus показывается когда question.open (аккордеон открыт)
+
+Добавил метод toggleQuestion(key) который переключает состояние конкретного аккордеона
+
+Добавил :key="key" в цикл v-for для правильной работы Vue
+
+**Исправил атрибут `alt
+
+-->
